@@ -1,0 +1,9 @@
+---
+# tasks file for kubeadm-containerd-ansible
+
+- include_tasks: preconfig.yaml
+
+- include_tasks: install.yaml
+
+- include_tasks: after.yaml
+  when: '"kubeadm join" in kubeadm_result.stdout'

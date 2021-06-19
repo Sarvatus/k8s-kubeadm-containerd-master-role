@@ -1,0 +1,129 @@
+---
+- name: Set repo for Kubernetes
+  yum_repository:
+    name: kubernetes
+    description: Kubernetes
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    baseurl: "{{ kubernetes_yum_base_url }}"
+    gpgkey: "{{ kubernetes_yum_gpg_key }}"
+
+
+- name: Set repo for Docker - containerd required
+  yum_repository:
+    name: Docker
+    description: Docker repo
+    baseurl: "{{ docker_baseurl }}"
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey: "{{ docker_gpg_key }}"
+
+
+- name: Add gpgkeys for docker and kubernetes
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items: 
+    -  "{{ kubernetes_yum_gpg_key }}"
+    -  "{{ docker_gpg_key }}"
+
+- name: Delete podman and buildah
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: 
+    - podman
+    - buildah
+
+- name: Install required packages for kubernetes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - containerd.io
+    - kubelet
+    - kubeadm
+    - kubectl
+  register: install_result
+
+- debug: 
+    msg: "{{ install_result }}"
+
+- name: Enable kubelet and containerd
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+    - kubelet
+    - containerd
+
+- name: Create directory for containerd
+  file:
+    path: /etc/containerd
+    state: directory
+
+- name: Generate default config for containerd
+  shell: containerd config default > /etc/containerd/config.toml
+
+- name: Modify config to use cgroup systemd
+  lineinfile:
+    path: /etc/containerd/config.toml
+    line: '             SystemdCgroup = true '
+    insertafter: options
+
+- name: Restart containerd
+  service:
+    name: containerd
+    state: restarted
+
+- name: Generate default kubeadm init config
+  shell: kubeadm config print init-defaults > /tmp/configkube.yaml
+  ignore_errors: true
+
+- name: Modify kubeadm config
+  replace:
+    path: /tmp/configkube.yaml
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp: "advertiseAddress: 1.2.3.4", replace: "advertiseAddress: {{ ipv4_master }}"  }
+    - { regexp: "criSocket: /var/run/dockershim.sock", replace: "criSocket: /var/run/containerd/containerd.sock" }
+    - { regexp: "dnsDomain: cluster.local", replace: "dnsDomain: {{ dnscluster | default('cluster.local') }}" }
+    - { regexp: "serviceSubnet: 10.96.0.0/12", replace: "serviceSubnet: {{ service_subnet  | default('10.96.0.0/12') }}" }
+    - { regexp: "name: node", replace: "name: {{ hostname | default('node') }}" }
+
+- name: Add line to hosts
+  lineinfile:
+    path: /etc/hosts
+    insertafter: EOF
+    line: "{{ ipv4_master }}"     {{ hostname }} | default('node')
+
+- name: Append kubelet configuration
+  lineinfile:
+    path: /tmp/configkube.yaml
+    insertafter: '^scheduler'
+    line: |
+
+      ---
+      apiVersion: kubelet.config.k8s.io/v1beta1
+      kind: KubeletConfiguration
+      cgroupDriver: systemd
+
+
+- name: Initialize kubeadm with additional parameters
+  command: kubeadm init --config=/tmp/configkube.yaml  --cri-socket /run/containerd/containerd.sock
+  ignore_errors: yes
+  register: kubeadm_result
+
+- debug:
+    msg: "{{ kubeadm_result }}"
+
+- name: Apply weave network
+  shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+  register: network_result
+
+- debug:
+    msg: "{{ network_result.stdout }}"
