@@ -4,14 +4,12 @@
 ### Vars for kubeadm config file  generated to /tmp/configkube.yaml
 ### For test purposes just change "ipv4_master" and "hostname" var
 ipv4_master: 192.168.0.30
-dnscluster:
-service_subnet:
+dnscluster: cluster.local
+service_subnet: 10.96.0.0/12
 hostname: cent30
 
 ### Additional vars for disable
 disable_firewall: true
-user:
-user_home_dir:
 
 ### Vars for repository settings
 kubernetes_yum_base_url: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch"

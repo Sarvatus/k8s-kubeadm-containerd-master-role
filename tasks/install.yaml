@@ -91,9 +91,9 @@
   with_items:
     - { regexp: "advertiseAddress: 1.2.3.4", replace: "advertiseAddress: {{ ipv4_master }}"  }
     - { regexp: "criSocket: /var/run/dockershim.sock", replace: "criSocket: /var/run/containerd/containerd.sock" }
-    - { regexp: "dnsDomain: cluster.local", replace: "dnsDomain: {{ dnscluster | default('cluster.local') }}" }
-    - { regexp: "serviceSubnet: 10.96.0.0/12", replace: "serviceSubnet: {{ service_subnet  | default('10.96.0.0/12') }}" }
-    - { regexp: "name: node", replace: "name: {{ hostname | default('node') }}" }
+    - { regexp: "dnsDomain: cluster.local", replace: "dnsDomain: {{ dnscluster }}" }
+    - { regexp: "serviceSubnet: 10.96.0.0/12", replace: "serviceSubnet: {{ service_subnet }}" }
+    - { regexp: "name: node", replace: "name: {{ hostname }}" }
 
 - name: Add line to hosts
   lineinfile:
