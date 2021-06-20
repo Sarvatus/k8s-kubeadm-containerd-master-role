@@ -27,7 +27,7 @@ Role Variables
 ```
 ipv4_master: 192.168.0.30  <--- ip address for your master node  
 dnscluster: cluster.local  
-service_subnet: 10.96.0.0/12  
+service_subnet: 10.96.0.0/12  <--- for calico network change for 192.168.0.0/16
 hostname: cent30  <--- hostname for your master node  
 ```
 
@@ -67,8 +67,14 @@ Including an example of how to use your role (for instance, with variables passe
       vars:
       - hostname: <master_node_hostname>
       - ipv4_master: <master_node_ip_address>
+      - network: weave
+      - service_subnet: 10.96.0.0/12
+      - disable_firewall: false
       roles:
-         - k8s-kubeadm-containerd-role
+         - k8s-kubeadm-containerd-role  
+```
+ansible-playbook -i "192.168.0.30," example-play-master-k8s.yaml -k
+```
 
 License
 -------
