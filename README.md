@@ -25,14 +25,16 @@ ipv4_master: 192.168.0.30  <--- ip address of your master node
 dnscluster: cluster.local  
 service_subnet: 10.96.0.0/12  
 hostname: cent30  <--- hostname of your master node  
+```
 
 #### Additional vars for disable firewalld - when **false** just create rule for ports on control plane node: 
 6443,2379-2380,10250,10251,10252  
-
+```
 disable_firewall: true
-
+```
 
 ### Vars for repository settings
+```
 kubernetes_yum_base_url: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch"  
 kubernetes_yum_gpg_key:
   - https://packages.cloud.google.com/yum/doc/yum-key.gpg  
