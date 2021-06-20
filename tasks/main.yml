@@ -13,3 +13,8 @@
     - network == "weave"
     - '"kubeadm join" in kubeadm_result.stdout' 
 
+- include_tasks: calico.yaml
+  when: 
+    - network == "calico"
+    - '"kubeadm join" in kubeadm_result.stdout' 
+

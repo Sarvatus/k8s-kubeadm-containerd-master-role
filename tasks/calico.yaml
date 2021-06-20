@@ -1,0 +1,25 @@
+---
+- name: Open ports for firewall if variable false
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  with_items:
+    - 179/tcp
+    - 4/tcp
+    - 4789/udp
+    - 5473/tcp
+    - 443/tcp
+    - 6443/tcp
+    - 2379/tcp
+  when: not disable_firewall
+
+- name: Apply calico network
+  shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+  register: network_result
+
+- debug:
+    msg: "{{ network_result.stdout }}"
+
+
