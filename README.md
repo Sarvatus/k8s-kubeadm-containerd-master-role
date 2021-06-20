@@ -20,12 +20,13 @@ Role Variables
 
 #### Vars for kubeadm config file  generated to /tmp/configkube.yaml
 ##### For test purposes just change "ipv4_master" and "hostname" var
+```
 ipv4_master: 192.168.0.30  <--- ip address of your master node  
 dnscluster: cluster.local  
 service_subnet: 10.96.0.0/12  
 hostname: cent30  <--- hostname of your master node  
 
-#### Additional vars for disable firewalld - when false just create rule for ports on control plane node: 
+#### Additional vars for disable firewalld - when **false** just create rule for ports on control plane node: 
 6443,2379-2380,10250,10251,10252  
 
 disable_firewall: true
@@ -39,6 +40,7 @@ kubernetes_yum_gpg_key:
 
 docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable  
 docker_gpg_key: https://download.docker.com/linux/centos/gpg
+```
 
 Dependencies
 ------------
