@@ -37,7 +37,7 @@ kubernetes_yum_gpg_key:
   - https://packages.cloud.google.com/yum/doc/yum-key.gpg  
   - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
-docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable  
 docker_gpg_key: https://download.docker.com/linux/centos/gpg
 
 Dependencies
