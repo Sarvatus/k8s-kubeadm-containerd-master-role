@@ -25,10 +25,10 @@ Role Variables
 #### Vars for kubeadm config file  generated to /tmp/configkube.yaml
 ##### For test purposes just change "ipv4_master" and "hostname" var
 ```
-ipv4_master: 192.168.0.30  <--- ip address of your master node  
+ipv4_master: 192.168.0.30  <--- ip address for your master node  
 dnscluster: cluster.local  
 service_subnet: 10.96.0.0/12  
-hostname: cent30  <--- hostname of your master node  
+hostname: cent30  <--- hostname for your master node  
 ```
 
 #### Additional vars for disable firewalld - when <false> just create rule for ports on control plane node: 
