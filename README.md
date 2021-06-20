@@ -35,6 +35,10 @@ hostname: cent30  <--- hostname for your master node
 ```
 disable_firewall: false
 ```
+#### Additional var for set network weave/calico: 
+```
+network: weave
+```
 
 ### Vars for repository settings
 ```
