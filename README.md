@@ -18,7 +18,25 @@ Requirements
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### Vars for kubeadm config file  generated to /tmp/configkube.yaml
+### For test purposes just change "ipv4_master" and "hostname" var
+ipv4_master: 192.168.0.30
+dnscluster:
+service_subnet:
+hostname: cent30
+
+### Additional vars for disable firewalld - when false just create rule for ports: 6443,2379-2380,10250,10251,10252
+disable_firewall: true
+
+
+### Vars for repository settings
+kubernetes_yum_base_url: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch"
+kubernetes_yum_gpg_key:
+  - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+  - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+docker_gpg_key: https://download.docker.com/linux/centos/gpg
 
 Dependencies
 ------------
