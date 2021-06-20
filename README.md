@@ -1,4 +1,4 @@
-k8s-kubeadm-containerd-role
+k8s-kubeadm-containerd-master-role
 =========
 
 An ansible role for installing a k8s based on cri containerd via kubeadm on a Linux CentOS8.  
@@ -66,7 +66,7 @@ cat <<EOF > example-play-master-k8s.yaml
     - service_subnet: 10.96.0.0/12
     - disable_firewall: false
   roles:
-    - k8s-kubeadm-containerd-role
+    -  k8s-kubeadm-containerd-master-role
 EOF
 ```
 ```
