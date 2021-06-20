@@ -31,7 +31,7 @@ service_subnet: 10.96.0.0/12
 hostname: cent30  <--- hostname for your master node  
 ```
 
-#### Additional vars for disable firewalld - when <false> just create rule for ports on control plane node: 
+#### Additional var for disable firewalld - when <false> just creates rule for ports on control plane node: 
 6443,2379-2380,10250,10251,10252  
 ```
 disable_firewall: false
