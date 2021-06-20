@@ -20,7 +20,7 @@ Role Variables
 
 ### Vars for kubeadm config file  generated to /tmp/configkube.yaml
 ### For test purposes just change "ipv4_master" and "hostname" var
-ipv4_master: 192.168.0.30
+ipv4_master: 192.168.0.30.
 dnscluster: cluster.local
 service_subnet: 10.96.0.0/12
 hostname: cent30
