@@ -6,7 +6,13 @@ An ansible role for installing k8s based on cri containerd via kubeadm on Linux 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+- 2 GB or more of RAM per machine (any less will leave little room for your apps).
+- 2 CPUs or more.
+- Full network connectivity between all machines in the cluster (public or private network is fine).
+- Unique hostname, MAC address, and product_uuid for every node.
+- Certain ports are open on your machines
+[Source kubernetes.io](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 
 Role Variables
 --------------
