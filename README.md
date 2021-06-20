@@ -32,7 +32,6 @@ hostname: cent30  <--- hostname for your master node
 ```
 
 #### Additional var for disable firewalld - when < false > just creates rule for ports on control plane node: 
-6443,2379-2380,10250,10251,10252  
 ```
 disable_firewall: false
 ```
