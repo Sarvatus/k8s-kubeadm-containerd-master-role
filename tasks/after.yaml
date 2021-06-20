@@ -1,13 +1,11 @@
 ---
-- name: Make kube dir 
+- name: Make kube dir
   file:
     path: ~/.kube
     state: directory
     
-    
-- name: Copy admin config 
+- name: Copy admin config
   copy:
     src: /etc/kubernetes/admin.conf
     dest: ~/.kube/config
     remote_src: true
-

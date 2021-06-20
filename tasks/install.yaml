@@ -9,7 +9,6 @@
     baseurl: "{{ kubernetes_yum_base_url }}"
     gpgkey: "{{ kubernetes_yum_gpg_key }}"
 
-
 - name: Set repo for Docker - containerd required
   yum_repository:
     name: Docker
@@ -20,12 +19,11 @@
     repo_gpgcheck: true
     gpgkey: "{{ docker_gpg_key }}"
 
-
 - name: Add gpgkeys for docker and kubernetes
   rpm_key:
     key: "{{ item }}"
     state: present
-  with_items: 
+  with_items:
     -  "{{ kubernetes_yum_gpg_key }}"
     -  "{{ docker_gpg_key }}"
 
@@ -33,7 +31,7 @@
   package:
     name: "{{ item }}"
     state: absent
-  with_items: 
+  with_items:
     - podman
     - buildah
 
@@ -48,7 +46,7 @@
     - kubectl
   register: install_result
 
-- debug: 
+- debug:
     msg: "{{ install_result }}"
 
 - name: Enable kubelet and containerd
@@ -89,7 +87,7 @@
     regexp: "{{ item.regexp }}"
     replace: "{{ item.replace }}"
   with_items:
-    - { regexp: "advertiseAddress: 1.2.3.4", replace: "advertiseAddress: {{ ipv4_master }}"  }
+    - { regexp: "advertiseAddress: 1.2.3.4", replace: "advertiseAddress: {{ ipv4_master }}" }
     - { regexp: "criSocket: /var/run/dockershim.sock", replace: "criSocket: /var/run/containerd/containerd.sock" }
     - { regexp: "dnsDomain: cluster.local", replace: "dnsDomain: {{ dnscluster }}" }
     - { regexp: "serviceSubnet: 10.96.0.0/12", replace: "serviceSubnet: {{ service_subnet }}" }
@@ -99,7 +97,7 @@
   lineinfile:
     path: /etc/hosts
     insertafter: EOF
-    line: "{{ ipv4_master }}     {{ hostname }}" 
+    line: "{{ ipv4_master }}     {{ hostname }}"
 
 - name: Append kubelet configuration
   lineinfile:
@@ -111,7 +109,6 @@
       apiVersion: kubelet.config.k8s.io/v1beta1
       kind: KubeletConfiguration
       cgroupDriver: systemd
-
 
 - name: Initialize kubeadm with additional parameters
   command: kubeadm init --config=/tmp/configkube.yaml  --cri-socket /run/containerd/containerd.sock

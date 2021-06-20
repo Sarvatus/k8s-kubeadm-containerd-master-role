@@ -1,6 +1,5 @@
 ---
 # tasks file for kubeadm-containerd-ansible
-
 - include_tasks: preconfig.yaml
 
 - include_tasks: install.yaml
@@ -9,12 +8,12 @@
   when: '"kubeadm join" in kubeadm_result.stdout'
 
 - include_tasks: weave.yaml
-  when: 
+  when:
     - network == "weave"
-    - '"kubeadm join" in kubeadm_result.stdout' 
+    - '"kubeadm join" in kubeadm_result.stdout'
 
 - include_tasks: calico.yaml
-  when: 
+  when:
     - network == "calico"
-    - '"kubeadm join" in kubeadm_result.stdout' 
+    - '"kubeadm join" in kubeadm_result.stdout'
 
