@@ -62,18 +62,21 @@ Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: all
-      vars:
-      - hostname: <master_node_hostname>
-      - ipv4_master: <master_node_ip_address>
-      - network: weave
-      - service_subnet: 10.96.0.0/12
-      - disable_firewall: false
-      roles:
-         - k8s-kubeadm-containerd-role  
 ```
-ansible-playbook -i "192.168.0.30," example-play-master-k8s.yaml -k
+cat <<EOF > example-play-master-k8s.yaml
+- hosts: all
+  vars:
+    - hostname: <master_node_hostname>
+    - ipv4_master: <master_node_ip_address>
+    - network: weave
+    - service_subnet: 10.96.0.0/12
+    - disable_firewall: false
+  roles:
+    - k8s-kubeadm-containerd-role
+EOF
+```
+```
+ansible-playbook -i "<master_node_ip_address>," example-play-master-k8s.yaml -k
 ```
 
 License
