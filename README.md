@@ -72,7 +72,10 @@ EOF
 ```
 ansible-playbook -i "<master_node_ip_address>," example-play-master-k8s.yaml -k
 ```
-
+Be aware
+--------
+By default its taint on control plane (master) and you need worker node to create your deployment
+  
 License
 -------
 
