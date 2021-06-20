@@ -1,7 +1,7 @@
-Role Name
+k8s-kubeadm-containerd-role
 =========
 
-A brief description of the role goes here.
+An ansible role for installing k8s based on cri containerd via kubeadm on Linux CentOS8.
 
 Requirements
 ------------
