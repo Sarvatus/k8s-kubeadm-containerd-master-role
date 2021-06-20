@@ -2,8 +2,8 @@ k8s-kubeadm-containerd-role
 =========
 
 An ansible role for installing a k8s based on cri containerd via kubeadm on a Linux CentOS8.  
-Support networks: weave  
-For now only install control plane (master node)
+Support networks: weave, calico  
+For now only install/setup control plane (master node)
     
     
 Requirements
