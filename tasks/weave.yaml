@@ -1,0 +1,20 @@
+---
+- name: Open ports for firewall if variable false
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  with_items:
+    - 6783/tcp
+    - 6783-6784/udp
+  when: not disable_firewall
+
+- name: Apply weave network
+  shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+  register: network_result
+
+- debug:
+    msg: "{{ network_result.stdout }}"
+
+

@@ -7,3 +7,9 @@
 
 - include_tasks: after.yaml
   when: '"kubeadm join" in kubeadm_result.stdout'
+
+- include_tasks: weave.yaml
+  when: 
+    - network == "weave"
+    - '"kubeadm join" in kubeadm_result.stdout' 
+
