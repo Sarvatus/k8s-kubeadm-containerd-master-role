@@ -4,7 +4,8 @@ k8s-kubeadm-containerd-role
 An ansible role for installing k8s based on cri containerd via kubeadm on Linux CentOS8.  
 Support networks: weave  
 For now only install control plane (master node)
-
+    
+    
 Requirements
 ------------
 
@@ -16,7 +17,8 @@ Requirements
 - Certain ports are open on your machines
 
 [Source kubernetes.io](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
-
+  
+  
 Role Variables
 --------------
 
@@ -45,12 +47,14 @@ kubernetes_yum_gpg_key:
 docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable  
 docker_gpg_key: https://download.docker.com/linux/centos/gpg
 ```
-
+  
+  
 Dependencies
 ------------
 
 A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
+  
+  
 Example Playbook
 ----------------
 
