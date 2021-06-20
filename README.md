@@ -32,9 +32,9 @@ disable_firewall: true
 
 
 ### Vars for repository settings
-kubernetes_yum_base_url: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch"
+kubernetes_yum_base_url: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch"  
 kubernetes_yum_gpg_key:
-  - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+  - https://packages.cloud.google.com/yum/doc/yum-key.gpg  
   - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
 docker_baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
