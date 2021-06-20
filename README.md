@@ -81,7 +81,7 @@ Fast Test
 --------
 If you've created control plane (master) and worker node or you deleted taint from master you can perform fast test applying below commands:
 ```
-kubectl create deployment --image=nginx nginx  
+kubectl create deployment --image=nginx:alpine nginx  
 kubectl expose deployment nginx --port=80 --target-port=80 --external-ip=<your_ip_address_for_service>
 ```
 Check in browser whether you see default Nginx website  
