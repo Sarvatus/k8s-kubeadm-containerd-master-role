@@ -12,6 +12,7 @@ Requirements
 - Full network connectivity between all machines in the cluster (public or private network is fine).
 - Unique hostname, MAC address, and product_uuid for every node.
 - Certain ports are open on your machines
+
 [Source kubernetes.io](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 
 Role Variables
