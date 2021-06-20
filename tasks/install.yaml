@@ -99,7 +99,7 @@
   lineinfile:
     path: /etc/hosts
     insertafter: EOF
-    line: "{{ ipv4_master }}"     {{ hostname }} | default('node')
+    line: "{{ ipv4_master }}     {{ hostname }}" 
 
 - name: Append kubelet configuration
   lineinfile:
@@ -121,9 +121,3 @@
 - debug:
     msg: "{{ kubeadm_result }}"
 
-- name: Apply weave network
-  shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-  register: network_result
-
-- debug:
-    msg: "{{ network_result.stdout }}"
