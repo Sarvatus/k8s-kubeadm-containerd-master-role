@@ -56,9 +56,12 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - hosts: all
+      vars:
+      - hostname: <master_node_hostname>
+      - ipv4_master: <master_node_ip_address>
       roles:
-         - { role: username.rolename, x: 42 }
+         - k8s-kubeadm-containerd-role
 
 License
 -------
@@ -68,4 +71,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Sarvatus <dxloop01@gmail.com>
