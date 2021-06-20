@@ -77,6 +77,19 @@ Be aware
 By default its taint on control plane (master) and you need remove taint or create worker node to create your stuff (services, deployments)      
 [k8s role for worker node containerd](https://github.com/Sarvatus/k8s-kubeadm-containerd-worker-role)
   
+Fast Test
+--------
+If you've created control plane (master) and worker node you can perform fast test applying below commands:
+```
+kubectl create deployment --image=nginx nginx  
+kubectl expose deployment nginx --port=80 --target-port=80 --external-ip=<your_ip_address_for_service>
+```
+Check in browser whether you see default Nginx website  
+Remove your test  
+```
+kubectl delete service nginx && kubectl delete deployment nginx
+```
+
 License
 -------
 
