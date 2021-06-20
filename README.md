@@ -79,7 +79,7 @@ By default its taint on control plane (master) and you need remove taint or crea
   
 Fast Test
 --------
-If you've created control plane (master) and worker node you can perform fast test applying below commands:
+If you've created control plane (master) and worker node or you deleted taint from master you can perform fast test applying below commands:
 ```
 kubectl create deployment --image=nginx nginx  
 kubectl expose deployment nginx --port=80 --target-port=80 --external-ip=<your_ip_address_for_service>
