@@ -2,13 +2,21 @@
 - name: Open ports for firewall if variable false
   firewalld:
     port: "{{ item }}"
-    masquerade: yes
     permanent: yes
     state: enabled
     immediate: yes
   with_items:
     - 6783/tcp
     - 6783-6784/udp
+  when: not disable_firewall
+
+- name: Add masquerade for public zone
+  firewalld:
+    masquerade: yes
+    state: enabled
+    permanent: yes
+    immediate: yes
+    zone: public
   when: not disable_firewall
 
 - name: Apply weave network
