@@ -2,7 +2,6 @@
 - name: Open ports for firewall if variable false
   firewalld:
     port: "{{ item }}"
-    masquerade: yes
     permanent: yes
     state: enabled
     immediate: yes
@@ -14,6 +13,15 @@
     - 443/tcp
     - 6443/tcp
     - 2379/tcp
+  when: not disable_firewall
+
+- name: Add masquerade for public zone
+  firewalld:
+    masquerade: yes
+    state: enabled
+    permanent: yes
+    immediate: yes
+    zone: public
   when: not disable_firewall
 
 - name: Apply calico network
