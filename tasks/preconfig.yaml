@@ -64,7 +64,8 @@
     - 10250/tcp
     - 10251/tcp
     - 10252/tcp
-  when: not disable_firewall 
+  when: not disable_firewall
+  ignore_errors: true
 
 - name: Add masquerade for public zone
   firewalld:
@@ -74,3 +75,4 @@
     immediate: yes
     zone: public
   when: not disable_firewall
+  ignore_errors: true
